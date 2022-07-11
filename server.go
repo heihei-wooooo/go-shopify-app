@@ -17,6 +17,7 @@ func main() {
 	e.GET("/users/:id", getUser)
 	// e.PUT("/users/:id", updateUser)
 	// e.DELETE("/users/:id", deleteUser)
+	e.GET("/show", show)
 
 	e.Logger.Fatal(e.Start(":1323"))
 
@@ -26,4 +27,11 @@ func getUser(c echo.Context) error {
 	// ユーザID (users/:id)
 	id := c.Param("id")
 	return c.String(http.StatusOK, id)
+}
+
+func show(c echo.Context) error {
+	// クエリーからチームとメンバーを取得
+	team := c.QueryParam("team")
+	member := c.QueryParam("member")
+	return c.String(http.StatusOK, "team:"+team+", member:"+member)
 }
